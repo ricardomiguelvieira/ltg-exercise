@@ -3,7 +3,7 @@
 const Application = require('../src/Application');
 
 test('returns zero when nothing in basket', () => {
-  expect(Application.isEmptyBasket([], [])).toBe(0.0);
+  expect(Application.getTotalPrice([], [])).toBe(0.0);
 });
 
 test('returns base price of product without discounts', () => {
@@ -14,7 +14,7 @@ test('returns base price of product without discounts', () => {
       discounts: [],
     },
   };
-  expect(Application.getBasePrice(basket, [])).toBe(9.99);
+  expect(Application.getTotalPrice(basket, [])).toBe(9.99);
 });
 
 test('sums product prices without discounts', () => {
@@ -53,7 +53,7 @@ test('percentage discount', () => {
       discounts: ['c08200af-0fa9-45e3-a6a0-cb7bd6696d4e'],
     },
   };
-  expect(Application.getPercentDiscount(basket, discounts)).toBe(8.5);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(8.5);
 });
 
 test('percentage discount has min qualifier', () => {
@@ -71,7 +71,7 @@ test('percentage discount has min qualifier', () => {
       discounts: ['c08200af-0fa9-45e3-a6a0-cb7bd6696d4e'],
     },
   };
-  expect(Application.discountHasMinimumQualifier(basket, discounts)).toBe(10.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(10.0);
 });
 
 test('percentage discount cumulative', () => {
@@ -97,7 +97,7 @@ test('percentage discount cumulative', () => {
       ],
     },
   };
-  expect(Application.getComulativeDiscount(basket, discounts)).toBe(8.55); // 95% of 90% of 10.00
+  expect(Application.getTotalPrice(basket, discounts)).toBe(8.55); // 95% of 90% of 10.00
 });
 
 test('absolute discount', () => {
@@ -115,7 +115,7 @@ test('absolute discount', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.getAbsoluteDiscount(basket, discounts)).toBe(7.5);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(7.5);
 });
 
 test('absolute discount has minimum qualifier', () => {
@@ -133,7 +133,7 @@ test('absolute discount has minimum qualifier', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.discountHasMinimumQualifier(basket, discounts)).toBe(20.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(20.0);
 });
 
 test('percentage and absolute discount', () => {
@@ -159,7 +159,7 @@ test('percentage and absolute discount', () => {
       ],
     },
   };
-  expect(Application.getComulativeDiscount(basket, discounts)).toBe(7.75);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(7.75);
 });
 
 test('buy N get M free', () => {
@@ -178,7 +178,7 @@ test('buy N get M free', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(20.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(20.0);
 });
 
 test('buy N get M free when quantity not multiple of M', () => {
@@ -198,7 +198,7 @@ test('buy N get M free when quantity not multiple of M', () => {
     },
   };
   // first three cost 20, fourth costs 10
-  expect(Application.main(basket, discounts)).toBe(20.0 + 10.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(20.0 + 10.0);
 });
 
 test('buy N get M free, twice M', () => {
@@ -217,7 +217,7 @@ test('buy N get M free, twice M', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(40.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(40.0);
 });
 
 test('buy N get M free, 1-to-1', () => {
@@ -236,7 +236,7 @@ test('buy N get M free, 1-to-1', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(50.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(50.0);
 });
 
 test('N for the price of M', () => {
@@ -255,7 +255,7 @@ test('N for the price of M', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(60.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(60.0);
 });
 
 test('N for the price of M, with two free', () => {
@@ -274,7 +274,7 @@ test('N for the price of M, with two free', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(60.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(60.0);
 });
 
 test('N for the price of M, with one leftover', () => {
@@ -293,7 +293,7 @@ test('N for the price of M, with one leftover', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(80.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(80.0);
 });
 
 test('N for the price of M, with two leftover', () => {
@@ -312,7 +312,7 @@ test('N for the price of M, with two leftover', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(100.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(100.0);
 });
 
 test('N for the price of M, twice N', () => {
@@ -331,7 +331,7 @@ test('N for the price of M, twice N', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(40.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(40.0);
 });
 
 test('N for the price of M, twice M, with one leftover', () => {
@@ -350,7 +350,7 @@ test('N for the price of M, twice M, with one leftover', () => {
       discounts: ['cd29ba8c-faf2-4493-9b6b-4b339310d82d'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(50.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(50.0);
 });
 
 test('percentage and N for the price of M', () => {
@@ -377,7 +377,7 @@ test('percentage and N for the price of M', () => {
       ],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(18.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(18.0);
 });
 
 test('absolute discount and buy N get M free', () => {
@@ -404,7 +404,7 @@ test('absolute discount and buy N get M free', () => {
       ],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(6 * 7.5);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(6 * 7.5);
 });
 
 test('sums product prices with various discounts', () => {
@@ -454,5 +454,5 @@ test('sums product prices with various discounts', () => {
       discounts: ['910c9f0b-2fa4-4a54-861d-7b8f530aab6f'],
     },
   };
-  expect(Application.main(basket, discounts)).toBe(7.5 + 20.0 + 100.0 + 90.0);
+  expect(Application.getTotalPrice(basket, discounts)).toBe(7.5 + 20.0 + 100.0 + 90.0);
 });
