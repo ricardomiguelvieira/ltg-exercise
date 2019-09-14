@@ -1,0 +1,9 @@
+{
+  "autoload": {
+    "psr-4": {"": ["src"]}
+  },
+  "require": {
+    "phpunit/phpunit": "7.0.2",
+    "squizlabs/php_codesniffer": "3.2.3"
+  }
+}

@@ -1,0 +1,11 @@
+# IDEs and editors
+.idea
+.vscode
+
+# 3rd party dependencies
+vendor/
+node_modules/
+
+# other
+composer.lock
+package-lock.json
