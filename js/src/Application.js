@@ -43,8 +43,9 @@ class Application {
     const decimal = discount.value / 100;
     return product.price * decimal;
   }
+}
 
-
+module.exports = Application;
 
 
 
@@ -100,4 +101,4 @@ class Application {
 //   }
 // }
 
-module.exports = Application;
+
