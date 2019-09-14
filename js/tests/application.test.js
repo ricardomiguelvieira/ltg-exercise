@@ -35,7 +35,7 @@ test('sums product prices without discounts', () => {
       discounts: [],
     },
   };
-  expect(Application.getTotalPrice(basket, [])).toBe(9.99 + 3 * 50.0 + 10 * 29.5);
+  expect(Application.getTotalPrice(basket, [])).toBe(9.99 + (3 * 50.0) + (10 * 29.5));
 });
 
 test('percentage discount', () => {

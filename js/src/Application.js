@@ -41,7 +41,7 @@ class Application {
     discountsList.forEach((discountCode) => {
       const currentDiscountType = discounts[discountCode].type;
       if (this.discountHasMinimumQualifier(product, discounts[discountCode])) {
-        totalDiscount += discountTypes[currentDiscountType](productPrice, discounts[discountCode], product);
+        totalDiscount = (discountTypes[currentDiscountType](productPrice, discounts[discountCode], product));
       }
       productPrice = (productPrice * productQuantity) - totalDiscount;
     });
@@ -62,12 +62,13 @@ class Application {
   }
 
   static getBuyNGetNFreeDiscount(productPrice, discount, product) {
-    return discount.n * product.price - (discount.n - discount.m) * product.price;
+    const timesDiscountsApply = Math.floor(product.quantity / discount.min);
+    return (((discount.n * product.price) - ((discount.n - discount.m) * product.price))) * timesDiscountsApply;
   }
 
   static getNForThePriceOfM(productPrice, discount, product) {
-    return (product.price * discount.n) - (product.price * discount.m);
+    const timesDiscountsApply = Math.floor(product.quantity / discount.min);
+    return ((product.price * discount.n) - (product.price * discount.m)) * timesDiscountsApply;
   }
 }
-
 module.exports = Application;
