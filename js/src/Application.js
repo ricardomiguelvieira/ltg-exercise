@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-mixed-operators */
-/* eslint-disable consistent-return */
 class Application {
   /* Get total price of products in basket */
   static getTotalPrice(basket, discounts) {
@@ -35,7 +32,6 @@ class Application {
       nForThePriceOfM: this.getNForThePriceOfM,
     };
 
-
     const discountsList = Object.keys(discounts);
 
     discountsList.forEach((discountCode) => {
@@ -63,7 +59,7 @@ class Application {
 
   static getBuyNGetNFreeDiscount(productPrice, discount, product) {
     const timesDiscountsApply = Math.floor(product.quantity / discount.min);
-    return (((discount.n * product.price) - ((discount.n - discount.m) * product.price))) * timesDiscountsApply;
+    return (((discount.n * product.price) - (discount.n - discount.m)) * product.price) * timesDiscountsApply;
   }
 
   static getNForThePriceOfM(productPrice, discount, product) {
@@ -71,4 +67,5 @@ class Application {
     return ((product.price * discount.n) - (product.price * discount.m)) * timesDiscountsApply;
   }
 }
+
 module.exports = Application;
