@@ -32,6 +32,7 @@ class Application {
       nForThePriceOfM: this.getNForThePriceOfM,
     };
 
+
     const discountsList = Object.keys(discounts);
 
     discountsList.forEach((discountCode) => {
@@ -59,7 +60,7 @@ class Application {
 
   static getBuyNGetNFreeDiscount(productPrice, discount, product) {
     const timesDiscountsApply = Math.floor(product.quantity / discount.min);
-    return (((discount.n * product.price) - (discount.n - discount.m)) * product.price) * timesDiscountsApply;
+    return (((discount.n * product.price) - ((discount.n - discount.m) * product.price))) * timesDiscountsApply;
   }
 
   static getNForThePriceOfM(productPrice, discount, product) {
