@@ -22,7 +22,7 @@ class Application {
         total += basket[productId].price * basket[productId].quantity;
       }
     });
-    return total;
+    return parseFloat(total);
   }
 
   /**
