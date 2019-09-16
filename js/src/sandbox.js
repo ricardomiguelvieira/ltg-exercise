@@ -1,4 +1,6 @@
-const app = require('../src/Application.js');
+/* Test file for console logs */
+
+const app = require('./Application.js');
 
 const discounts = {
   'cd29ba8c-faf2-4493-9b6b-4b339310d82d': {
